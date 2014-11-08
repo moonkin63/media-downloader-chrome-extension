@@ -10,9 +10,9 @@ function addDownloadButton() {
                 $(this).attr('dm_btn', '1');
                 var parent = $(this).closest('div[class^="area clear_fix"]');
                 var info = parent.find('.title_wrap');
-                parent.html(parent.html() + '<div onclick="cur.cancelClick = true;" ' +
-                    'style=" position: absolute; left: 101%; margin-top: 9px; z-index: 100" class="download_btn"' +//todo css
-                    'media_url="' + url + '"; media_title="' + info.text() + '">_D_</div>');
+                parent.html(parent.html() + '<div class="download_btn" onclick="cur.cancelClick = true;" ' +
+                    'style="background-image:url(\'' + downloadButtonURL + '\')"' +
+                    'media_url="' + url + '"; media_title="' + info.text() + '"></div>');
             }
         }
     });
@@ -37,6 +37,7 @@ function downloadMP3(url, filename) {
 }
 
 var timer;
+var downloadButtonURL = chrome.extension.getURL("img/download.ico");
 
 function stopTimer() {
     if (timer) {
