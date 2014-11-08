@@ -1,5 +1,4 @@
 function addDownloadButton() {
-    console.debug('timer.tick');
     var countMedia = 0;
     $('input').each(function () {
         var str = $(this).attr('value');
@@ -49,19 +48,14 @@ function stopTimer() {
 function startTimer() {
     if (!timer) {
         timer = setInterval(addDownloadButton, 1000);
+        console.debug('timer = ' + timer);
     }
-//    isTimerStarted = true;
-//    var timer = setTimeout(function run() {
-//        console.debug('timer.tick');
-//        if (isTimerStarted) {
-//            addDownloadButton();
-//            timer = setTimeout(run, 2000);
-//        }
-//    }, 2000);
 }
 
 jQuery(document).ready(function () {
-    startTimer();
+//    startTimer();
+    chrome.extension.sendMessage({action: 'register_page'}, function (response) {
+    });
 });
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {

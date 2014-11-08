@@ -9,7 +9,20 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         setBadgeText(message.title);
         return
     }
+    if (action === 'register_page') {
+        registerPage(sender);
+        return;
+    }
 });
+
+function registerPage(sender) {
+    chrome.tabs.getSelected(null, function (tab) {
+        if (tab.id === sender.tab.id) {
+            chrome.tabs.sendMessage(tab.id, {action: "start_timer"}, function (response) {
+            });
+        }
+    });
+}
 
 function setBadgeText(badgeText) {
     chrome.browserAction.setBadgeText({text: badgeText + ''});
@@ -36,7 +49,9 @@ chrome.tabs.onActivated.addListener(function () {
         });
     });
     chrome.tabs.query({active: false, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "stop_timer"}, function (response) {
+        tabs.forEach(function (val) {
+            chrome.tabs.sendMessage(val.id, {action: "stop_timer"}, function (response) {
+            });
         });
     });
 });
