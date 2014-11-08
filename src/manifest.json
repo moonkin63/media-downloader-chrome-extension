@@ -1,0 +1,22 @@
+{
+    "name": "Media Downloader",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "background": {
+    "scripts": ["script.js"]
+    },
+    "permissions": [
+        "downloads","tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["https://vk.com/*"],
+            "js": ["jquery-2.1.1.min.js", "main.js"]
+        }
+    ],
+    "browser_action": {
+        /*"default_icon": "icon.png",*/
+        "default_title": "Media Downloader",
+        "default_popup": "popup.html"
+    }
+}
