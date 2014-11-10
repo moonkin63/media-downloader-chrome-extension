@@ -13,6 +13,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         registerPage(sender);
         return;
     }
+    if (action === 'download_mp4') {
+        downloadMP4(message.url, message.title);
+        return;
+    }
 });
 
 function registerPage(sender) {
@@ -26,6 +30,16 @@ function registerPage(sender) {
 
 function setBadgeText(badgeText) {
     chrome.browserAction.setBadgeText({text: badgeText + ''});
+}
+
+function downloadMP4(url, filename) {
+    if (!endsWith(filename, '.mp4')) {
+        filename += '.mp4';
+    }
+    chrome.downloads.download({
+        url: url,
+        filename: filename
+    });
 }
 
 function downloadMP3(url, filename) {
