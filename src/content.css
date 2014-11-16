@@ -18,3 +18,22 @@
     padding-right: 5px;
     cursor: pointer;
 }
+
+.md_vk_download_label {
+    width: 100%;
+    float: left;
+}
+
+.md_y_download_label {
+    width: 100%;
+    float: left;
+}
+
+#md_y_download_video {
+    width: 100%;
+}
+
+.md_y_download_video_button {
+    width: 33%;
+    float: left;
+}

@@ -17,6 +17,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         downloadMP4(message.url, message.title);
         return;
     }
+    if (action === 'download_with_ext') {
+        downloadFile(message.url, message.title, message.ext);
+        return;
+    }
 });
 
 function registerPage(sender) {
@@ -30,6 +34,19 @@ function registerPage(sender) {
 
 function setBadgeText(badgeText) {
     chrome.browserAction.setBadgeText({text: badgeText + ''});
+}
+
+function downloadFile(url, filename, fileExt) {
+    if (!startsWith(fileExt, '.')) {
+        fileExt = '.' + fileExt;
+    }
+    if (!endsWith(filename, fileExt)) {
+        filename += fileExt;
+    }
+    chrome.downloads.download({
+        url: url,
+        filename: filename
+    });
 }
 
 function downloadMP4(url, filename) {
@@ -54,6 +71,10 @@ function downloadMP3(url, filename) {
 
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+function startsWith(str, preffix) {
+    return str.indexOf(preffix) === 0;
 }
 
 chrome.tabs.onActivated.addListener(function () {
