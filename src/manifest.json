@@ -1,32 +1,40 @@
 {
-    "name": "Media Downloader",
-    "version": "0.2.1",
-    "manifest_version": 2,
-    "background": {
-        "scripts": ["background.js"]
-    },
-    "permissions": [
-        "downloads", "tabs"
-    ],
-    "content_scripts": [
-        {
-            "matches": ["https://vk.com/*","https://www.youtube.com/*"],
-            "js": ["jquery-2.1.1.min.js", "main.js","constants.js"],
-            "css": ["content.css"]
-        }
-    ],
-    "icons": {
-        "16": "img/icon16.png",
-        "48": "img/icon48.png",
-        "128": "img/icon128.png"
-    },
-    "browser_action": {
-        "default_icon": "img/icon48.png",
-        "default_title": "Media Downloader",
-        "default_popup": "popup.html"
-    },
-    "web_accessible_resources": [
-        "img/*.png",
-        "img/*.ico"
-    ]
+  "name": "Media Downloader",
+  "version": "0.2.2",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "downloads",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://vk.com/*",
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "jquery-2.1.1.min.js",
+        "main.js",
+        "constants.js"
+      ],
+      "css": ["content.css"]
+    }
+  ],
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "img/icon48.png",
+    "default_title": "Media Downloader",
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    "img/*.png",
+    "img/*.ico"
+  ]
 }

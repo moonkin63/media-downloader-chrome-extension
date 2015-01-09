@@ -18,8 +18,8 @@ function addDownloadButtonForAudio() {
                 var info = parent.find('.title_wrap');
                 var fileName = $.trim(info.text())
                 parent.html(parent.html() + '<div class="download_btn" onclick="cur.cancelClick = true;" ' +
-                    'style="background-image:url(\'' + downloadButtonURL + '\')"' +
-                    'media_url="' + url + '"; media_title="' + fileName + '"></div>');
+                'style="background-image:url(\'' + downloadButtonURL + '\')"' +
+                'media_url="' + url + '"; media_title="' + fileName + '"></div>');
             }
         }
     });
@@ -47,13 +47,15 @@ function addDownloadButtonForVideo() {
                 '<span class="md_vk_download_label">Download:</span><p></p>';
             for (var key in urls) {
                 downloadDiv += '<div class="md_vk_download_video_button" media_title="' + videoTitle + '_' + key +
-                    '" media_url="' + urls[key] + '">' + key + '</div>';
+                '" media_url="' + urls[key] + '">' + key + '</div>';
             }
             downloadDiv += '</div>'
-            $('#mv_content').append(downloadDiv);
+            $('.mv_share_actions').append(downloadDiv);
             $('div.md_vk_download_video_button').click(function () {
-                chrome.extension.sendMessage({action: 'download_mp4', title: $(this).attr('media_title'),
-                    url: $(this).attr('media_url')}, function (response) {
+                chrome.extension.sendMessage({
+                    action: 'download_mp4', title: $(this).attr('media_title'),
+                    url: $(this).attr('media_url')
+                }, function (response) {
                 });
             });
         }
@@ -81,14 +83,16 @@ function addDownloadButtonForYoutube() {
                     continue;
                 }
                 downloadDiv += '<div class="md_y_download_video_button" media_title="' + videoTitle + '_' + key +
-                    '" media_url="' + urls[key] + '" ext="' + itagExt[key] + '" itag="' + key + '">' + itagExt[key] +
-                    ' ' + itagName[key] + '</div>';
+                '" media_url="' + urls[key] + '" ext="' + itagExt[key] + '" itag="' + key + '">' + itagExt[key] +
+                ' ' + itagName[key] + '</div>';
             }
             downloadDiv += '</div>';
             $('#eow-title').parent().parent().append(downloadDiv);
             $('div.md_y_download_video_button').click(function () {
-                chrome.extension.sendMessage({action: 'download_with_ext', title: $(this).attr('media_title'),
-                    url: $(this).attr('media_url'), ext: $(this).attr('ext')}, function (response) {
+                chrome.extension.sendMessage({
+                    action: 'download_with_ext', title: $(this).attr('media_title'),
+                    url: $(this).attr('media_url'), ext: $(this).attr('ext')
+                }, function (response) {
                 });
             });
         }
