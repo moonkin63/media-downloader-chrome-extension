@@ -8,7 +8,6 @@ jQuery(document).ready(function () {
                 tabs[0].id,
                 {action: 'get_popup_content'},
                 function (info) {
-                    console.debug('asd');
                     $('#test_id').html(info.vk_video + '<ul class="list-group">' + info.vk_audio + '</ul>'
                     + info.youtube_video);
 

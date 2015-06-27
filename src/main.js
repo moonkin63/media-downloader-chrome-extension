@@ -87,8 +87,6 @@ function addDownloadButtonForYoutube() {
         if ($(this).text().indexOf('googlevideo.com') !== -1) {
             var config = $(this).text();
             var urls = extractVideoUrlsForYoutube(config);
-            console.debug(urls);
-
             var downloadDiv = '<div id="md_y_download_video"><span class="md_y_download_label">Download:</span>';
             for (var key in urls) {
                 if (!itagExt[key]) {
@@ -171,7 +169,6 @@ jQuery(document).ready(function () {
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     var action = message.action;
-    console.debug(message.action + ' | ' + document.domain);
     if (action === 'stop_timer') {
         stopTimer();
         return;
