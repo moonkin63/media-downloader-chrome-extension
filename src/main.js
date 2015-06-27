@@ -1,7 +1,15 @@
+var md_vk_audio = '';
+var md_vk_video = '';
+var md_youtube_video = '';
+
 function findMedia() {
-    addDownloadButtonForAudio();
-    addDownloadButtonForVideo();
-    addDownloadButtonForYoutube();
+    if ('vk.com' === document.domain) {
+        addDownloadButtonForAudio();
+        addDownloadButtonForVideo();
+    }
+    if ('www.youtube.com' === document.domain) {
+        addDownloadButtonForYoutube();
+    }
 }
 
 function addDownloadButtonForAudio() {
@@ -20,6 +28,8 @@ function addDownloadButtonForAudio() {
                 parent.html(parent.html() + '<div class="download_btn" onclick="cur.cancelClick = true;" ' +
                 'style="background-image:url(\'' + downloadButtonURL + '\')"' +
                 'media_url="' + url + '"; media_title="' + fileName + '"></div>');
+                md_vk_audio += '<li class="download_btn list-group-item list-group-item-info" onclick="cur.cancelClick = true;" ' +
+                'media_url="' + url + '"; media_title="' + fileName + '">' + fileName + '</li>';
             }
         }
     });
@@ -48,6 +58,8 @@ function addDownloadButtonForVideo() {
             for (var key in urls) {
                 downloadDiv += '<div class="md_vk_download_video_button" media_title="' + videoTitle + '_' + key +
                 '" media_url="' + urls[key] + '">' + key + '</div>';
+                md_vk_video+='<button class="md_vk_download_video_button" media_title="' + videoTitle + '_' + key +
+                '" media_url="' + urls[key] + '">' + key + '</button>';
             }
             downloadDiv += '</div>'
             $('.mv_share_actions').append(downloadDiv);
@@ -159,7 +171,7 @@ jQuery(document).ready(function () {
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     var action = message.action;
-    console.debug(message.action);
+    console.debug(message.action + ' | ' + document.domain);
     if (action === 'stop_timer') {
         stopTimer();
         return;
@@ -167,5 +179,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (action === 'start_timer') {
         startTimer()
         return;
+    }
+    if (action === 'get_popup_content') {
+        sendResponse({
+            vk_video: md_vk_video,
+            vk_audio: md_vk_audio,
+            youtube_video: md_youtube_video,
+            domain: document.domain
+        });
     }
 });
